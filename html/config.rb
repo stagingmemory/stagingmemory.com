@@ -1,11 +1,13 @@
-###
-# Compass
-###
+set :css_dir,               'css'
+set :js_dir,                'js'
+set :images_dir,            'img'
+set :fonts_dir,             'fonts'
 
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
+# Slim template engine
+require 'slim'
+
+# explicit require of sass as suggested by 'tilt'
+require 'sass'
 
 ###
 # Page options, layouts, aliases and proxies
@@ -14,28 +16,20 @@
 # Per-page layout changes:
 #
 # With no layout
-# page "/path/to/file.html", :layout => false
-#
-# With alternative layout
-# page "/path/to/file.html", :layout => :otherlayout
-#
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
+page '/*.xml', layout: false
+page '/*.json', layout: false
+page '/*.txt', layout: false
 
-# Proxy pages (https://middlemanapp.com/advanced/dynamic_pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", :locals => {
-#  :which_fake_page => "Rendering a fake page with a local variable" }
+# With alternative layout
+# page "/path/to/file.html", layout: :otherlayout
+
+# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
+# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
+#  which_fake_page: "Rendering a fake page with a local variable" }
 
 ###
 # Helpers
 ###
-
-activate :directory_indexes
-
-# Automatic image dimensions on image_tag helper
-# activate :automatic_image_sizes
 
 # Reload the browser automatically whenever files change
 configure :development do
@@ -49,26 +43,22 @@ end
 #   end
 # end
 
-set :css_dir, 'stylesheets'
+activate :directory_indexes
 
-set :js_dir, 'javascripts'
+active_nav = {:class => "Active"}
 
-set :images_dir, 'images'
 
 # Build-specific configuration
 configure :build do
-  # For example, change the Compass output style for deployment
-  # activate :minify_css
+  # Minify CSS on build
+  activate :minify_css
 
   # Minify Javascript on build
-  # activate :minify_javascript
+  activate :minify_javascript
+end
 
-  # Enable cache buster
-  # activate :asset_hash
-
-  # Use relative URLs
-  # activate :relative_assets
-
-  # Or use a different image path
-  # set :http_prefix, "/Content/images/"
+# work-around to remove copies of font-awesome files. Where are they pulled in?
+after_build do |builder|
+  build_dir = config[:build_dir]
+  Dir.glob(build_dir + '/fonts/*wesome*').each { |f| File.delete(f) if File.file? f }
 end

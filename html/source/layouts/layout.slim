@@ -1,0 +1,44 @@
+doctype html
+/!
+  | Landed by HTML5 UP
+  | html5up.net | @n33co
+  | Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title= current_page.data.title
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    /[if lte IE 8]
+      == javascript_include_tag "ie/html5shiv.js"
+    == stylesheet_link_tag "main", media: :all
+    /[if lte IE 9]
+      == stylesheet_link_tag "ie9", media: :all
+    /[if lte IE 8]
+      == stylesheet_link_tag "ie8", media: :all
+  body.landing class="#{page_classes}"
+    #page-wrapper
+      /! Header
+      header#header
+        h1#logo
+          a href="/"  Staging Memory
+        nav#nav
+          ul
+            li
+              a href="/"  Home
+            li
+              a href="project"  Project
+            li
+              a href="people"  People
+            li
+              a href="contact"  Contact
+      == yield
+      /! Footer
+      footer#footer
+        ul.copyright
+          li Copyright 2015 &copy; Staging Memory. All rights reserved.
+        
+    /! Scripts    
+    == javascript_include_tag "vendor"
+    /[if lte IE 8]
+      == javascript_include_tag "ie/respond"
+    == javascript_include_tag "main"
