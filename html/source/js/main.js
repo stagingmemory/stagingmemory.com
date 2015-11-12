@@ -197,20 +197,7 @@
 
 									}
 
-								// Add scrollex.
-									$this.scrollex({
-										mode:		mode,
-										top:		top,
-										bottom:		bottom,
-										initialize:	function(t) { $this.addClass('inactive'); },
-										terminate:	function(t) { $this.removeClass('inactive'); },
-										enter:		function(t) { $this.removeClass('inactive'); },
 
-										// Uncomment the line below to "rewind" when this spotlight scrolls out of view.
-
-										//leave:	function(t) { $this.addClass('inactive'); },
-
-									});
 
 							}
 
